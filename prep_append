@@ -1,0 +1,26 @@
+for nobuild in apache-maven maven-artifact-test \
+               maven-compat maven-core maven-plugin-api \
+               maven-plugin-parameter-documenter maven-reporting \
+               maven-repository-metadata maven-script \
+               maven-error-diagnostics; do
+     python3 /usr/share/java-utils/pom_editor.py pom_disable_module $nobuild
+
+done
+
+# Don't install parent POM
+python3 /usr/share/java-utils/mvn_package.py :maven __noinstall
+
+# Install all artifacts in Maven 3 directory.
+python3 /usr/share/java-utils/mvn_file.py ":{*}" maven/@1
+
+# these parts are compatibility versions which are available in
+# maven-3.x as well. We default to maven-3, but if someone asks for
+# 2.x we provide few compat versions
+python3 /usr/share/java-utils/mvn_compat_version.py ":maven-{artifact,model,settings}" \
+                    2.0.2 2.0.6 2.0.7 2.0.8 2.2.1
+
+# Don't depend on backport-util-concurrent
+python3 /usr/share/java-utils/pom_editor.py pom_remove_dep :backport-util-concurrent
+python3 /usr/share/java-utils/pom_editor.py pom_remove_dep :backport-util-concurrent maven-artifact-manager
+
+sed -i s/edu.emory.mathcs.backport.// `find -name DefaultArtifactResolver.java`

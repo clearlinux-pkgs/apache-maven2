@@ -1,0 +1,5 @@
+maven2-2.2.1-update-tests.patch
+maven2-2.2.1-unshade.patch
+maven2-2.2.1-default-resolver-pool-size.patch
+maven2-2.2.1-strip-jackrabbit-dep.patch
+maven2-2.2.1-migrate-to-plexus-containers-container-default.patch
