@@ -1,6 +1,6 @@
 Name     : apache-maven2
 Version  : 2.2.1
-Release  : 1
+Release  : 2
 URL      : https://archive.apache.org/dist/maven/source/apache-maven-2.2.1-src.tar.gz
 Source0  : https://archive.apache.org/dist/maven/source/apache-maven-2.2.1-src.tar.gz
 Summary  : No detailed summary available
